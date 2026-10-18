@@ -248,7 +248,7 @@ function renderOffers(targetId, offers, type) {
     button.type = "button";
     button.disabled = true;
     button.textContent = "Choisir ce pack · à configurer";
-    button.title = "Offre à configurer par l’équipe LightFA";
+    button.title = "Offre à configurer par l’équipe VØRAX RP";
     article.append(value, description, list, button);
     target.append(article);
   });
