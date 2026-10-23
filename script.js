@@ -158,27 +158,34 @@ function renderRules() {
 
 const coinOffers = [
   {
-    name: "Pack Starter",
+    name: "Pack 1",
     kicker: "Pack Coins",
-    desc: "Une première formule à personnaliser.",
-    benefits: ["Volume de Coins à définir", "Utilisation des Coins à préciser"],
+    coins: 1000,
+    price: 10,
   },
   {
-    name: "Pack Premium",
-    kicker: "Pack Coins · Recommandé",
-    desc: "Une formule intermédiaire à personnaliser.",
-    benefits: [
-      "Volume de Coins à définir",
-      "Utilisation des Coins à préciser",
-      "Détails de l’offre à configurer",
-    ],
-    featured: true,
+    name: "Pack 2",
+    kicker: "Pack Coins",
+    coins: 2500,
+    price: 25,
   },
   {
-    name: "Pack Elite",
+    name: "Pack 3",
     kicker: "Pack Coins",
-    desc: "Une formule étendue à personnaliser.",
-    benefits: ["Volume de Coins à définir", "Détails de l’offre à configurer"],
+    coins: 3500,
+    price: 35,
+  },
+  {
+    name: "Pack 4",
+    kicker: "Pack Coins",
+    coins: 5000,
+    price: 50,
+  },
+  {
+    name: "Pack 5",
+    kicker: "Pack Coins",
+    coins: 10000,
+    price: 100,
   },
 ];
 const vipOffers = [
@@ -233,23 +240,36 @@ function renderOffers(targetId, offers, type) {
     const value = document.createElement("p");
     value.className = "offer-value";
     value.textContent =
-      type === "vip" ? "Tarif à définir" : "Coins · à définir";
-    const description = document.createElement("p");
-    description.className = "offer-desc";
-    description.textContent = offer.desc;
-    const list = document.createElement("ul");
-    offer.benefits.forEach((benefit) => {
-      const item = document.createElement("li");
-      item.textContent = benefit;
-      list.append(item);
-    });
+      type === "vip"
+        ? "Tarif à définir"
+        : `${new Intl.NumberFormat("fr-FR").format(offer.coins)} Coins`;
+    if (type === "coins") {
+      const price = document.createElement("p");
+      price.className = "offer-price";
+      price.textContent = `${offer.price} €`;
+      article.append(value, price);
+    } else {
+      article.append(value);
+    }
+    if (type === "vip") {
+      const description = document.createElement("p");
+      description.className = "offer-desc";
+      description.textContent = offer.desc;
+      const list = document.createElement("ul");
+      offer.benefits.forEach((benefit) => {
+        const item = document.createElement("li");
+        item.textContent = benefit;
+        list.append(item);
+      });
+      article.append(description, list);
+    }
     const button = document.createElement("button");
     button.className = "placeholder-action";
     button.type = "button";
     button.disabled = true;
     button.textContent = "Choisir ce pack · à configurer";
     button.title = "Offre à configurer par l’équipe VØRAX RP";
-    article.append(value, description, list, button);
+    article.append(button);
     target.append(article);
   });
 }
